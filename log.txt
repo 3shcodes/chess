@@ -17,3 +17,45 @@ Game at Tue Aug 01 17:09:08 IST 2023
 
 The White pawnE at e2 has been moved to e4
 The Black pawnD at d7 has been moved to d5
+
+
+Game at Tue Aug 01 20:50:03 IST 2023
+------------------------------------------------------------
+
+
+
+Game at Tue Aug 01 20:53:57 IST 2023
+------------------------------------------------------------
+
+
+
+Game at Tue Aug 01 20:58:26 IST 2023
+------------------------------------------------------------
+
+
+
+Game at Tue Aug 01 20:59:04 IST 2023
+------------------------------------------------------------
+
+The White pawnE at e2 has been moved to e4
+The Black pawnD at d7 has been moved to d5
+The White pawnE at e4 has captured pawnD at d5
+
+
+Game at Tue Aug 01 21:01:39 IST 2023
+------------------------------------------------------------
+
+The Black knightQ at b8 has been moved to c6
+The White pawnH at h2 has been moved to h3
+The Black knightQ at c6 has been moved to b4
+The White pawnH at h3 has been moved to h4
+The Black knightQ at b4 has captured pawnE at d5
+The White pawnH at h4 has been moved to h5
+The Black knightQ at d5 has been moved to b4
+The White pawnG at g2 has been moved to g4
+
+
+Game at Tue Aug 01 21:11:47 IST 2023
+------------------------------------------------------------
+
+The White pawnE at e2 has been moved to e4

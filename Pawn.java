@@ -8,12 +8,12 @@ public class Pawn extends Piece {
 
 
 	@Override
-	boolean possibleMove(int x, int y) {
+	boolean isPossibleCoordinate(int x, int y) {
 
 		if (this.getColor() == Color.WHITE) {
 
 			// 2 spaces forward
-			if (this.getMoved() == false && this.getY() - y == 2 && this.getX() - x == 0
+			if (this.hasMoved() == false && this.getY() - y == 2 && this.getX() - x == 0
 					&& Board.isPathClear(getX(), getY(), x, y) && Board.getPiece(x, y) == null) {
 				return true;
 			}
@@ -31,7 +31,7 @@ public class Pawn extends Piece {
 
 		if (this.getColor() == Color.BLACK) {
 			// 2 spaces forward
-			if (this.getMoved() == false && this.getY() - y == -2 && this.getX() - x == 0
+			if (this.hasMoved() == false && this.getY() - y == -2 && this.getX() - x == 0
 					&& Board.isPathClear(getX(), getY(), x, y) && Board.getPiece(x, y) == null) {
 				return true;
 			}
@@ -58,58 +58,58 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	ArrayList<String> canMove() {
-		ArrayList<String> fin = new ArrayList<String>();
+	ArrayList<String> getPossibleMoves() {
+		ArrayList<String> result = new ArrayList<String>();
 		int x = this.getX();
 		int y = this.getY();
 
 		if (this.getColor() == Color.WHITE) {
 
-			if (this.testMove(x, y - 1)) {
-				String pos = Board.cosString(x,y-1);
-				fin.add(pos);
+			if (this.isValidMove(x, y - 1)) {
+				String pos = Board.coOrdinateToPosition(x,y-1);
+				result.add(pos);
 			}
 
-			if (this.testMove(x, y - 2) && this.getMoved()==false) {
-				String pos = Board.cosString(x,y-2);
-				fin.add(pos);
+			if (this.isValidMove(x, y - 2) && this.hasMoved()==false) {
+				String pos = Board.coOrdinateToPosition(x,y-2);
+				result.add(pos);
 			}
 
-			if (this.testMove(x - 1, y - 1)) {
-				String pos = Board.cosString(x-1,y-1);
-				fin.add(pos);
+			if (this.isValidMove(x - 1, y - 1)) {
+				String pos = Board.coOrdinateToPosition(x-1,y-1);
+				result.add(pos);
 			}
 
-			if (this.testMove(x + 1, y - 1)) {
-				String pos = Board.cosString(x+1,y-1);
-				fin.add(pos);
+			if (this.isValidMove(x + 1, y - 1)) {
+				String pos = Board.coOrdinateToPosition(x+1,y-1);
+				result.add(pos);
 			}
 
 		}
 		if (this.getColor() == Color.BLACK) {
 
-			if (this.testMove(x, y + 1)) {
-				String pos = Board.cosString(x,y+1);
-				fin.add(pos);
+			if (this.isValidMove(x, y + 1)) {
+				String pos = Board.coOrdinateToPosition(x,y+1);
+				result.add(pos);
 			}
 
-			if (this.testMove(x, y + 2) && this.getMoved()==false) {
-				String pos = Board.cosString(x,y+2);
-				fin.add(pos);
+			if (this.isValidMove(x, y + 2) && this.hasMoved()==false) {
+				String pos = Board.coOrdinateToPosition(x,y+2);
+				result.add(pos);
 			}
 
-			if (this.testMove(x - 1, y - 1)) {
-				String pos = Board.cosString(x-1,y-1);
-				fin.add(pos);
+			if (this.isValidMove(x - 1, y - 1)) {
+				String pos = Board.coOrdinateToPosition(x-1,y-1);
+				result.add(pos);
 			}
 
-			if (this.testMove(x + 1, y + 1)) {
-				String pos = Board.cosString(x+1,y+1);
-				fin.add(pos);
+			if (this.isValidMove(x + 1, y + 1)) {
+				String pos = Board.coOrdinateToPosition(x+1,y+1);
+				result.add(pos);
 			}
 		}
 
-		return fin;
+		return result;
 	}
 
 }

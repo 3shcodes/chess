@@ -5,6 +5,7 @@ public class Board {
     static ArrayList<Piece> black = new ArrayList<Piece>();
 
     static Piece board[][] = new Piece[8][8];
+	static final int MAX_COL = 7;
 
     static void printBoard() {
         System.out.println("  -------------------------------------------------");
@@ -87,18 +88,22 @@ public class Board {
 		int file = coordinates.charAt(0) - 'a'; // y
 		int rank = 7 - (coordinates.charAt(1) - '1'); // x
 
+		if (rank < 0 || rank > MAX_COL || file < 0 || file > MAX_COL) {
+			System.out.println("Invalid Tile please try again");
+			return null;
+		}
 		return getPiece(file, rank);
 		
 	}
 
-	static Piece getPiece(String piece, Color color) {
+	static Piece getPiece(String position, Color color) {
 
 		if (color == Color.WHITE) {
 
 			for (int i = 0; i < white.size(); i++) {
-				Piece p = white.get(i);
-				if (p.cmpPieces(piece)) {
-					return p;
+				Piece  piece= white.get(i);
+				if (piece.cmpPieces(position)) {
+					return piece;
 				}
 			}
 		}
@@ -106,9 +111,9 @@ public class Board {
 		else if (color == Color.BLACK) {
 
 			for (int i = 0; i < black.size(); i++) {
-				Piece p = black.get(i);
-				if (p.cmpPieces(piece)) {
-					return p;
+				Piece piece = black.get(i);
+				if (piece.cmpPieces(position)) {
+					return piece;
 				}
 			}
 		}
@@ -193,9 +198,9 @@ public class Board {
 		}
 
 		int file = coordinates.charAt(0) - 'a'; // y
-		int rank = 7 - (coordinates.charAt(1) - '1'); // x
+		int rank = MAX_COL - (coordinates.charAt(1) - '1'); // x
 
-		if (rank < 0 || rank > 7 || file < 0 || file > 7) {
+		if (rank < 0 || rank > MAX_COL || file < 0 || file > MAX_COL) {
 			System.out.println("Invalid Tile please try again");
 			return "";
 		}
@@ -208,7 +213,7 @@ public class Board {
 			System.out.print("Coin Name: ");
             System.out.println(currPiece.getColor()+" "+currPiece.getName());
 			System.out.print("Possible Moves: ");
-			ArrayList<String> viables = currPiece.canMove();
+			ArrayList<String> viables = currPiece.getPossibleMoves();
 			if ( viables.size() == 0 ) {
 				System.out.print("No possible moves");
 			} else {
@@ -248,8 +253,8 @@ public class Board {
 		}
 
 		// piece selected to move
-		Piece p = getPiece(piece, color);
-		if (p == null) {
+		Piece selectedPiece = getPiece(piece, color);
+		if (selectedPiece == null) {
 			System.out.println("invalid piece, please type in piece to move it.");
 			return -1;
 		}
@@ -261,9 +266,9 @@ public class Board {
 		}
 
 		int file = coordinates.charAt(0) - 'a'; // y
-		int rank = 7 - (coordinates.charAt(1) - '1'); // x
+		int rank = MAX_COL - (coordinates.charAt(1) - '1'); // x
 
-		if (rank < 0 || rank > 7 || file < 0 || file > 7) {
+		if (rank < 0 || rank > MAX_COL || file < 0 || file > MAX_COL) {
 			System.out.println("Invalid Tile please try again");
 			return -1;
 		}
@@ -271,18 +276,18 @@ public class Board {
 		// piece at destination
 		Piece other = getPiece(file, rank);
 
-		return p.move(file, rank, other);
+		return selectedPiece.move(file, rank, other);
 
 	}
 
-	static boolean checkForCheck(Color color) {
+	static boolean isCheck(Color color) {
 
 		Piece king = getPiece("king", color);
 
 		if (color == Color.WHITE) {
 			for (int i = 0; i < black.size(); i++) {
-				Piece p = black.get(i);
-				if (p.possibleMove(king.getX(), king.getY())) {
+				Piece piece = black.get(i);
+				if (piece.isPossibleCoordinate(king.getX(), king.getY())) {
 					return true;
 				}
 			}
@@ -290,8 +295,8 @@ public class Board {
 
 		else if (color == Color.BLACK) {
 			for (int i = 0; i < white.size(); i++) {
-				Piece p = white.get(i);
-				if (p.possibleMove(king.getX(), king.getY())) {
+				Piece piece = white.get(i);
+				if (piece.isPossibleCoordinate(king.getX(), king.getY())) {
 					return true;
 				}
 			}
@@ -300,19 +305,19 @@ public class Board {
 		return false;
 	}
 
-	static boolean mate(Color color) {
+	static boolean isCheckMate(Color color) {
 
 		if (color == Color.WHITE) {
 			for (int i = 0; i < white.size(); i++) {
-				Piece p = white.get(i);
-				if (p.canMove().size()!=0) {
+				Piece piece = white.get(i);
+				if (piece.getPossibleMoves().size()!=0) {
 					return false;
 				}
 			}
 		} else if (color == Color.BLACK) {
 			for (int i = 0; i < black.size(); i++) {
-				Piece p = black.get(i);
-				if (p.canMove().size()!=0) {
+				Piece piece = black.get(i);
+				if (piece.getPossibleMoves().size()!=0) {
 					return false;
 				}
 			}
@@ -321,7 +326,7 @@ public class Board {
 		return true;
 	}
 
-    static boolean staleMate(Color color) {
+    static boolean isStaleMate(Color color) {
 
 		// insufficient material stalemate
 		Piece knightK = getPiece("knightK", color);
@@ -345,7 +350,7 @@ public class Board {
 		}
 
 		// no legal moves stalemate
-		if (mate(color) == true && checkForCheck(color) == false) {
+		if (isCheckMate(color) == true && isCheck(color) == false) {
 			return true;
 		}
 
@@ -354,7 +359,7 @@ public class Board {
 	}
 
 
-    static String cosString( int x, int y ){
+    static String coOrdinateToPosition ( int x, int y ){
 
         char file = (char) ('a' + x  );
         char rank = (char) (8-y+'0');
@@ -364,7 +369,7 @@ public class Board {
     }
 
 	static ArrayList<String> isSafe(String coords, Color color){
-		ArrayList<String> fin = new ArrayList<>();
+		ArrayList<String> result = new ArrayList<>();
 		
 		int file = coords.charAt(0) - 'a'; // y
 		int rank = 7 - (coords.charAt(1) - '1'); // x
@@ -372,29 +377,29 @@ public class Board {
 
 		if (color == Color.WHITE) {
 			for (int i = 0; i < black.size(); i++) {
-				Piece p = black.get(i);
-				if (p.possibleMove(rank, file)) {
+				Piece piece = black.get(i);
+				if (piece.isPossibleCoordinate(rank, file)) {
 					// return true;
-					String cp = cosString(p.getX(), p.getY());
-					String warne = "The Black "+p.pName+" in "+cp+" can capture on "+coords;
-					fin.add(warne);
+					String cp = coOrdinateToPosition(piece.getX(), piece.getY());
+					String warn = "The Black "+piece.pieceName+" in "+cp+" can capture on "+coords;
+					result.add(warn);
 				}
 			}
 		}
 
 		else if (color == Color.BLACK) {
 			for (int i = 0; i < white.size(); i++) {
-				Piece p = white.get(i);
-				if (p.possibleMove(rank, file)) {
-					String cp = cosString(p.getX(), p.getY());
-					String warne = "The White "+p.pName+" in "+cp+" can capture on "+coords;
-					fin.add(warne);
+				Piece piece = white.get(i);
+				if (piece.isPossibleCoordinate(rank, file)) {
+					String cp = coOrdinateToPosition(piece.getX(), piece.getY());
+					String warn = "The White "+piece.pieceName+" in "+cp+" can capture on "+coords;
+					result.add(warn);
 					// return true;
 				}
 			}
 		}
 
-		return fin;
+		return result;
 	}
 
 

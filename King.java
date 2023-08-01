@@ -9,7 +9,7 @@ public class King extends Piece {
 	boolean isFirstMove = true;
 
 	@Override
-	public boolean possibleMove(int x, int y) {
+	public boolean isPossibleCoordinate(int x, int y) {
 		// cannot capture own piece
 		if (this.sameColor(Board.getPiece(x, y)) == true) {
 			return false;
@@ -105,90 +105,90 @@ public class King extends Piece {
 	}
 
 	@Override
-	public ArrayList<String> canMove() {
-		ArrayList<String> fin = new ArrayList<>();
+	public ArrayList<String> getPossibleMoves() {
+		ArrayList<String> result = new ArrayList<>();
 		int x = this.getX();
 		int y = this.getY();
 
 		// bishop
 		// top left
-		if (this.testMove(x - 1, y - 1)) {
-			String pos = Board.cosString(x-1,y-1);
-			fin.add(pos);
+		if (this.isValidMove(x - 1, y - 1)) {
+			String pos = Board.coOrdinateToPosition(x-1,y-1);
+			result.add(pos);
 		}
 		// top right
-		if (this.testMove(x + 1, y - 1)) {
-			String pos = Board.cosString(x+1,y-1);
-			fin.add(pos);
+		if (this.isValidMove(x + 1, y - 1)) {
+			String pos = Board.coOrdinateToPosition(x+1,y-1);
+			result.add(pos);
 		}
 		// bottom left
-		if (this.testMove(x - 1, y + 1)) {
-			String pos = Board.cosString(x-1,y+1);
-			fin.add(pos);
+		if (this.isValidMove(x - 1, y + 1)) {
+			String pos = Board.coOrdinateToPosition(x-1,y+1);
+			result.add(pos);
 		}
 		// bottom right
-		if (this.testMove(x + 1, y + 1)) {
-			String pos = Board.cosString(x+1,y+1);
-			fin.add(pos);
+		if (this.isValidMove(x + 1, y + 1)) {
+			String pos = Board.coOrdinateToPosition(x+1,y+1);
+			result.add(pos);
 		}
 
 		// rook
 		// left
-		if (this.testMove(x - 1, y)) {
-			String pos = Board.cosString(x-1,y);
-			fin.add(pos);
+		if (this.isValidMove(x - 1, y)) {
+			String pos = Board.coOrdinateToPosition(x-1,y);
+			result.add(pos);
 		}
 		// right
-		if (this.testMove(x + 1, y)) {
-			String pos = Board.cosString(x+1,y);
-			fin.add(pos);
+		if (this.isValidMove(x + 1, y)) {
+			String pos = Board.coOrdinateToPosition(x+1,y);
+			result.add(pos);
 		}
 		// down
-		if (this.testMove(x, y + 1)) {
-			String pos = Board.cosString(x,y+1);
-			fin.add(pos);
+		if (this.isValidMove(x, y + 1)) {
+			String pos = Board.coOrdinateToPosition(x,y+1);
+			result.add(pos);
 		}
 		// up
-		if (this.testMove(x, y - 1)) {
-			String pos = Board.cosString(x,y-1);
-			fin.add(pos);
+		if (this.isValidMove(x, y - 1)) {
+			String pos = Board.coOrdinateToPosition(x,y-1);
+			result.add(pos);
 		}
 
 
 		// castle
-		if ( this.getMoved() == false ) {
+		if ( this.hasMoved() == false ) {
 			if ( color == Color.WHITE ) {
 
 				// king side
 				Piece rightRook = Board.getPiece("rookK", Color.BLACK);
-				if ( this.testMove(x+1, y) && Board.getPiece(x+2, y)==null && rightRook.getMoved() == false ) {
-					String pos = Board.cosString(x+2, y);
-					fin.add(pos);
+				if ( this.isValidMove(x+1, y) && Board.getPiece(x+2, y)==null && rightRook.hasMoved() == false ) {
+					String pos = Board.coOrdinateToPosition(x+2, y);
+					result.add(pos);
 				}
 				// queen side
 				Piece leftRook = Board.getPiece("rookL", Color.BLACK);
-				if ( this.testMove(x-1, y) && Board.getPiece(x-2, y)==null && Board.getPiece(x-3, y) == null  && leftRook.getMoved() == false ) {
-					String pos = Board.cosString(x-2, y);
-					fin.add(pos);
+				if ( this.isValidMove(x-1, y) && Board.getPiece(x-2, y)==null && Board.getPiece(x-3, y) == null  && leftRook.hasMoved() == false ) {
+					String pos = Board.coOrdinateToPosition(x-2, y);
+					result.add(pos);
 				}
 			} else {
 
 				// king side
 				Piece rightRook = Board.getPiece("rookK", Color.WHITE);
-				if ( this.testMove(x+1, y) && Board.getPiece(x+2, y)==null && rightRook.getMoved() == false ) {
-					String pos = Board.cosString(x+2, y);
-					fin.add(pos);
+				if ( this.isValidMove(x+1, y) && Board.getPiece(x+2, y)==null && rightRook.hasMoved() == false ) {
+					String pos = Board.coOrdinateToPosition(x+2, y);
+					result.add(pos);
 				}
 				// queen side
 				Piece leftRook = Board.getPiece("rookL", Color.WHITE);
-				if ( this.testMove(x-1, y) && Board.getPiece(x-2, y)==null && Board.getPiece(x-3, y) == null  && leftRook.getMoved() == false ) {
-					String pos = Board.cosString(x-2, y);
-					fin.add(pos);
+				if ( this.isValidMove(x-1, y) && Board.getPiece(x-2, y)==null && Board.getPiece(x-3, y) == null  && leftRook.hasMoved() == false ) {
+					String pos = Board.coOrdinateToPosition(x-2, y);
+					result.add(pos);
 				}
 
 			}
 		}
-		return fin;
+		return result;
 	}
 
 }

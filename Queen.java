@@ -7,7 +7,7 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	boolean possibleMove(int x, int y) {
+	boolean isPossibleCoordinate(int x, int y) {
 		// cannot capture own piece
 		if (this.sameColor(Board.getPiece(x, y)) == true) {
 			return false;
@@ -37,18 +37,18 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	ArrayList<String> canMove() {
+	ArrayList<String> getPossibleMoves() {
 		
-		ArrayList<String> fin = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<String>();
 		int x = this.getX();
 		int y = this.getY();
 
 		// bishop
 		// top left
 		while ((--x) >= 0 && (--y) >= 0) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 
@@ -56,9 +56,9 @@ public class Queen extends Piece {
 		y = this.getY();
 		// top right
 		while ((++x) <= 7 && (--y) >= 0) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 
@@ -66,9 +66,9 @@ public class Queen extends Piece {
 		y = this.getY();
 		// bottom left
 		while ((--x) >= 0 && (++y) <= 7) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 
@@ -76,9 +76,9 @@ public class Queen extends Piece {
 		y = this.getY();
 		// bottom right
 		while ((++x) <= 7 && (++y) <= 7) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 
@@ -87,9 +87,9 @@ public class Queen extends Piece {
 		// rook
 		// left
 		while ((--x) >= 0 && y >= 0) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 
@@ -97,9 +97,9 @@ public class Queen extends Piece {
 		y = this.getY();
 		// right
 		while ((++x) <= 7 && y >= 0) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 
@@ -107,9 +107,9 @@ public class Queen extends Piece {
 		y = this.getY();
 		// down
 		while (x >= 0 && (++y) <= 7) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 
@@ -117,12 +117,12 @@ public class Queen extends Piece {
 		y = this.getY();
 		// up
 		while (x <= 7 && (--y) >= 0) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
-		return fin;
+		return result;
 	}
 
 }

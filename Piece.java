@@ -3,15 +3,15 @@ import java.util.ArrayList;
 public abstract class Piece {
 
     Color color;
-    String pName;
+    String pieceName;
     int x,y;
     boolean hasMoved = false;
 
-    Piece ( Color col, String pn, int xax, int yax ) {
-        this.color = col;
-        this.pName = pn;
-        this.x = xax;
-        this.y = yax;
+    Piece ( Color color, String pieceName, int x, int y ) {
+        this.color = color;
+        this.pieceName = pieceName;
+        this.x = x;
+        this.y = y;
 
         if( this.color == Color.WHITE ) {
             Board.white.add(this);
@@ -23,11 +23,11 @@ public abstract class Piece {
 
 
     String getName() {
-		return this.pName;
+		return this.pieceName;
 	}
 
 	boolean cmpPieces(String name) {
-		return this.pName.equals(name);
+		return this.pieceName.equals(name);
 	}
 
 	Color getColor() {
@@ -57,14 +57,14 @@ public abstract class Piece {
 		this.y = newY;
 	}
 
-	boolean getMoved(){
+	boolean hasMoved(){
 		return this.hasMoved;
 	}
 	void setMoved(boolean val){
 		this.hasMoved = val;
 	}
 
-	abstract boolean possibleMove(int x, int y);
+	abstract boolean isPossibleCoordinate(int x, int y);
 
 	int move( int x, int y, Piece other ){
 		// <White/Black> <coin> at <position 1> has been moved to <position 2>
@@ -72,7 +72,7 @@ public abstract class Piece {
 
 		
 
-		if ( this.possibleMove(x, y) != true ) {
+		if ( this.isPossibleCoordinate(x, y) != true ) {
 			return -1;
 		}
 
@@ -81,12 +81,12 @@ public abstract class Piece {
 		int yorg = this.getY();
 		
 		String currCol = "";
-		String fCoin = this.pName;
-		String fromP = Board.cosString(xorg, yorg);
+		String fCoin = this.pieceName;
+		String fromP = Board.coOrdinateToPosition(xorg, yorg);
 		String tCoin = "";
-		String toP = Board.cosString( x, y );
+		String toP = Board.coOrdinateToPosition( x, y );
 		if ( other!=null ) {
-			tCoin = other.pName;
+			tCoin = other.pieceName;
 		}
 
 		if ( this.getColor() == Color.WHITE ) {
@@ -103,7 +103,7 @@ public abstract class Piece {
 		boolean isFirstMove = !this.hasMoved;
 		this.hasMoved = true;
 
-		if (Board.checkForCheck(color) == true) {
+		if (Board.isCheck(color) == true) {
 			if (other != null) {
 				if (this.getColor() == Color.WHITE) {
 					Board.black.add(other);
@@ -134,10 +134,10 @@ public abstract class Piece {
 		}
 
 		// String currCol = "";
-		// String fCoin = this.pName;
-		// String fromP = Board.cosString(xorg, yorg);
+		// String fCoin = this.pieceName;
+		// String fromP = Board.coOrdinateToPosition(xorg, yorg);
 		// String tCoin = "";
-		// String toP = Board.cosString( x, y );
+		// String toP = Board.coOrdinateToPosition( x, y );
 
 		// <White/Black> <coin> at <position 1> has been moved to <position 2>
 		// <White/Black> <coin> at <position 1> has captured <coin> at <position 2>
@@ -151,7 +151,7 @@ public abstract class Piece {
 		return 0;
 	}
 
-	boolean testMove(int x, int y) {
+	boolean isValidMove(int x, int y) {
 		int xorg = this.getX();
 		int yorg = this.getY();
 		Piece other;
@@ -183,7 +183,7 @@ public abstract class Piece {
 
 	public abstract String toString();
 
-	abstract ArrayList<String> canMove();
+	abstract ArrayList<String> getPossibleMoves();
 
 
 

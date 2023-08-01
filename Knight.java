@@ -7,7 +7,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	boolean possibleMove(int x, int y) {
+	boolean isPossibleCoordinate(int x, int y) {
 		// cannot capture own piece
 		if (this.sameColor(Board.getPiece(x, y)) == true) {
 			return false;
@@ -30,54 +30,54 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	ArrayList<String> canMove() {
+	ArrayList<String> getPossibleMoves() {
 
-		ArrayList<String> fin = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<String>();
 
 		int x = this.getX();
 		int y = this.getY();
 
 		// left & up
-		if (this.testMove(x - 2, y - 1)) {
-			String pos = Board.cosString(x-2,y-1);
-			fin.add(pos);
+		if (this.isValidMove(x - 2, y - 1)) {
+			String pos = Board.coOrdinateToPosition(x-2,y-1);
+			result.add(pos);
 		}
-		if (this.testMove(x - 1, y - 2)) {
-			String pos = Board.cosString(x-1,y-2);
-			fin.add(pos);
+		if (this.isValidMove(x - 1, y - 2)) {
+			String pos = Board.coOrdinateToPosition(x-1,y-2);
+			result.add(pos);
 		}
 
 		// right & up
-		if (this.testMove(x + 2, y - 1)) {
-			String pos = Board.cosString(x+2,y-1);
-			fin.add(pos);
+		if (this.isValidMove(x + 2, y - 1)) {
+			String pos = Board.coOrdinateToPosition(x+2,y-1);
+			result.add(pos);
 		}
-		if (this.testMove(x + 1, y - 2)) {
-			String pos = Board.cosString(x+1,y-2);
-			fin.add(pos);
+		if (this.isValidMove(x + 1, y - 2)) {
+			String pos = Board.coOrdinateToPosition(x+1,y-2);
+			result.add(pos);
 		}
 
 		// left & down
-		if (this.testMove(x - 2, y + 1)) {
-			String pos = Board.cosString(x-2,y+1);
-			fin.add(pos);
+		if (this.isValidMove(x - 2, y + 1)) {
+			String pos = Board.coOrdinateToPosition(x-2,y+1);
+			result.add(pos);
 		}
-		if (this.testMove(x - 1, y + 2)) {
-			String pos = Board.cosString(x-1,y+2);
-			fin.add(pos);
+		if (this.isValidMove(x - 1, y + 2)) {
+			String pos = Board.coOrdinateToPosition(x-1,y+2);
+			result.add(pos);
 		}
 
 		// right & down
-		if (this.testMove(x + 2, y + 1)) {
-			String pos = Board.cosString(x+2,y+1);
-			fin.add(pos);
+		if (this.isValidMove(x + 2, y + 1)) {
+			String pos = Board.coOrdinateToPosition(x+2,y+1);
+			result.add(pos);
 		}
-		if (this.testMove(x + 1, y + 2)) {
-			String pos = Board.cosString(x+1,y+2);
-			fin.add(pos);
+		if (this.isValidMove(x + 1, y + 2)) {
+			String pos = Board.coOrdinateToPosition(x+1,y+2);
+			result.add(pos);
 		}
 
-		return fin;
+		return result;
 	}
 
 }

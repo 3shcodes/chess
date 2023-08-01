@@ -1,4 +1,3 @@
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,12 +35,12 @@ public class Chess {
 				} else
 					color = Color.BLACK;
 
-				if (Board.staleMate(color) == true) {
+				if (Board.isStaleMate(color) == true) {
 					System.out.println("game over, stalemate");
 					break;
 				}
-				if (Board.checkForCheck(color) == true) {
-					if (Board.mate(color) == true) {
+				if (Board.isCheck(color) == true) {
+					if (Board.isCheckMate(color) == true) {
 
 						System.out.printf("Checkmate, %s wins \n", color == Color.WHITE ? "Black" : "White");
 						break;
@@ -53,8 +52,8 @@ public class Chess {
                 // System.out.print(String.format("\033[%dA",200));
 				System.out.printf("%s's turn \n", color == Color.WHITE ? "White" : "Black");
 
-				String chPos = moveChoice.nextLine();
-                String piece = Board.chooseCoin(chPos, color);
+				String choosePosition = moveChoice.nextLine();
+                String piece = Board.chooseCoin(choosePosition, color);
                 String pos = "";
                 if ( piece.equals("") == false ) {
                     System.out.println("Enter position to be moved to: ");
@@ -64,10 +63,10 @@ public class Chess {
                 }
 
                 String col = turns%2 ==0 ? "White":"Black";
-                Piece fromP = Board.getPiece(piece, color);
-                String fromPos = Board.cosString( fromP.getX(), fromP.getY());
-                Piece toP = Board.getPiece(pos);
-                String toPos = pos;
+                Piece fromPiece = Board.getPiece(piece, color);
+                String fromPosition = Board.coOrdinateToPosition( fromPiece.getX(), fromPiece.getY());
+                Piece toPiece = Board.getPiece(pos);
+                String toPosition = pos;
                 
 
             //     <White/Black> <coin> at <position 1> has been moved to <position 2>
@@ -79,12 +78,12 @@ public class Chess {
 				if ( pos.equals("") == false && piece.equals("")==false && Board.processMove(move, color) == 0) {
                     FileWriter fWriter = new FileWriter(file,true);
                     PrintWriter pWriter = new PrintWriter(fWriter);
-                    if ( toP == null ) {
-                        String content = String.format("The %s %s at %s has been moved to %s", col, fromP.getName(), fromPos, toPos  );
+                    if ( toPiece == null ) {
+                        String content = String.format("The %s %s at %s has been moved to %s", col, fromPiece.getName(), fromPosition, toPosition  );
                         pWriter.println(content);
                         System.out.println();
                     } else {
-                        String content = String.format("The %s %s at %s has captured %s at %s", col, fromP.getName(), fromPos, toP.getName(), toPos);
+                        String content = String.format("The %s %s at %s has captured %s at %s", col, fromPiece.getName(), fromPosition, toPiece.getName(), toPosition);
                         pWriter.println(content);
                         System.out.println();
                     }

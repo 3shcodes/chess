@@ -7,7 +7,7 @@ class Bishop extends Piece {
 	}
 
 	@Override
-	boolean possibleMove(int x, int y) {
+	boolean isPossibleCoordinate(int x, int y) {
 		// cannot capture own piece
 		if (this.sameColor(Board.getPiece(x, y)) == true) {
 			return false;
@@ -32,9 +32,9 @@ class Bishop extends Piece {
 	}
 
 	@Override
-	ArrayList<String> canMove() {
+	ArrayList<String> getPossibleMoves() {
 
-		ArrayList<String> fin = new ArrayList<>();
+		ArrayList<String> result = new ArrayList<>();
 
 		int xorg = this.getX();
 		int yorg = this.getY();
@@ -45,39 +45,39 @@ class Bishop extends Piece {
 
 		// top left
 		while ((--x) >= 0 && (--y) >= 0) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 		x = xorg;
 		y = yorg;
 		// top right
 		while ((++x) <= 7 && (--y) >= 0) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 		x = xorg;
 		y = yorg;
 		// bottom left
 		while ((--x) >= 0 && (++y) <= 7) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
 		x = xorg;
 		y = yorg;
 		// bottom right
 		while ((++x) <= 7 && (++y) <= 7) {
-			if (this.testMove(x, y)) {
-				String pos = Board.cosString(x,y);
-				fin.add(pos);
+			if (this.isValidMove(x, y)) {
+				String pos = Board.coOrdinateToPosition(x,y);
+				result.add(pos);
 			}
 		}
-		return fin;
+		return result;
 	}
 
 }
