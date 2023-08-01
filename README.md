@@ -1,5 +1,15 @@
 # 2 Player Chess Game
 
+## Quick Installation
+Provide step by step series of examples and explanations about how to get a development environment running.
+
+```bash
+git clone http://github.com/3shcodes/chess.git
+cd chess/
+javac Chess.java && java Chess
+```
+
+
 ## Description
 This project is a command-line based 2 Player Chess game. The players take turns alternately, with Player 1 controlling the white pieces and Player 2 controlling the black pieces. The game follows the standard rules of chess, with each piece having its own unique moves and capabilities.
 
@@ -44,11 +54,3 @@ The board is represented with the following notation:
 ## Recording
 Every move in the game is recorded in a separate file. The record includes the color of the piece, the initial and final positions, and any captures that occurred.
 
-## Installation
-Provide step by step series of examples and explanations about how to get a development environment running.
-
-```bash
-git clone http://github.com/3shcodes/chess.git
-cd chess/
-javac Chess.java && java Chess
-```
