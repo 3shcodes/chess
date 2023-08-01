@@ -1,0 +1,19 @@
+Game at Tue Aug 01 17:06:31 IST 2023
+------------------------------------------------------------
+
+The White pawnE at e2 has been moved to e4
+The Black pawnE at e7 has been moved to e5
+
+
+
+Game at Tue Aug 01 17:07:31 IST 2023
+------------------------------------------------------------
+
+The White pawnE at e2 has been moved to e4
+
+
+Game at Tue Aug 01 17:09:08 IST 2023
+------------------------------------------------------------
+
+The White pawnE at e2 has been moved to e4
+The Black pawnD at d7 has been moved to d5

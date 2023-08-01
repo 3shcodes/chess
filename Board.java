@@ -82,6 +82,15 @@ public class Board {
 		return board[y][x];
 	}
 
+	static Piece getPiece(String coOrds) {
+		String coordinates = coOrds.substring(0, 2);
+		int file = coordinates.charAt(0) - 'a'; // y
+		int rank = 7 - (coordinates.charAt(1) - '1'); // x
+
+		return getPiece(file, rank);
+		
+	}
+
 	static Piece getPiece(String piece, Color color) {
 
 		if (color == Color.WHITE) {
@@ -378,7 +387,7 @@ public class Board {
 				Piece p = white.get(i);
 				if (p.possibleMove(rank, file)) {
 					String cp = cosString(p.getX(), p.getY());
-					String warne = "The Black "+p.pName+" in "+cp+" can capture on "+coords;
+					String warne = "The White "+p.pName+" in "+cp+" can capture on "+coords;
 					fin.add(warne);
 					// return true;
 				}

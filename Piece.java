@@ -67,7 +67,11 @@ public abstract class Piece {
 	abstract boolean possibleMove(int x, int y);
 
 	int move( int x, int y, Piece other ){
+		// <White/Black> <coin> at <position 1> has been moved to <position 2>
+		// <White/Black> <coin> at <position 1> has captured <coin> at <position 2>
+
 		
+
 		if ( this.possibleMove(x, y) != true ) {
 			return -1;
 		}
@@ -75,11 +79,22 @@ public abstract class Piece {
 		Color color = this.getColor();
 		int xorg = this.getX();
 		int yorg = this.getY();
+		
+		String currCol = "";
+		String fCoin = this.pName;
+		String fromP = Board.cosString(xorg, yorg);
+		String tCoin = "";
+		String toP = Board.cosString( x, y );
+		if ( other!=null ) {
+			tCoin = other.pName;
+		}
 
 		if ( this.getColor() == Color.WHITE ) {
 			Board.black.remove(other);
+			currCol = "White";
 		} else {
 			Board.white.remove(other);
+			currCol = "Black";
 		}
 
 		Board.setPiece(xorg, yorg, null);
@@ -108,16 +123,31 @@ public abstract class Piece {
 			if (this.getColor() == Color.WHITE && y == 0) {
 				Board.setPiece(x, y, null);
 				Board.white.remove(this);
-				Queen yasQueen = new Queen(Color.WHITE, "queen" + file, x, y);
+				new Queen(Color.WHITE, "queen" + file, x, y);
 				System.out.println("Pawn promoted!");
 			} else if (this.getColor() == Color.BLACK && y == 7) {
 				Board.setPiece(x, y, null);
 				Board.black.remove(this);
-				Queen yasQueen = new Queen(Color.BLACK, "queen" + file, x, y);
+				new Queen(Color.BLACK, "queen" + file, x, y);
 				System.out.println("Pawn promoted!");
 			}
 		}
 
+		// String currCol = "";
+		// String fCoin = this.pName;
+		// String fromP = Board.cosString(xorg, yorg);
+		// String tCoin = "";
+		// String toP = Board.cosString( x, y );
+
+		// <White/Black> <coin> at <position 1> has been moved to <position 2>
+		// <White/Black> <coin> at <position 1> has captured <coin> at <position 2>
+		// if ( tCoin == "" ) {
+		// 	System.out.printf("The %s %s at %s has been moved to %s", currCol, fCoin, fromP, toP );
+		// 	System.out.println();
+		// } else {
+		// 	System.out.printf("The %s %s at %s has captured %s at %s", currCol, fCoin, fromP, tCoin, toP);
+		// 	System.out.println();
+		// }
 		return 0;
 	}
 
