@@ -69,6 +69,9 @@ public class Chess {
                 String toPosition = pos;
                 
 
+
+
+
             //     <White/Black> <coin> at <position 1> has been moved to <position 2>
 		    //   <White/Black> <coin> at <position 1> has been captured <coin> at <position 2>
 
