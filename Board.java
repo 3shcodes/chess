@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class Board {
     static ArrayList<Piece> white = new ArrayList<Piece>();
     static ArrayList<Piece> black = new ArrayList<Piece>();
@@ -96,13 +97,13 @@ public class Board {
 		
 	}
 
-	static Piece getPiece(String position, Color color) {
+	static Piece getPiece(String pieceString, Color color) {
 
 		if (color == Color.WHITE) {
 
 			for (int i = 0; i < white.size(); i++) {
 				Piece  piece= white.get(i);
-				if (piece.cmpPieces(position)) {
+				if (piece.cmpPieces(pieceString)) {
 					return piece;
 				}
 			}
@@ -112,7 +113,7 @@ public class Board {
 
 			for (int i = 0; i < black.size(); i++) {
 				Piece piece = black.get(i);
-				if (piece.cmpPieces(position)) {
+				if (piece.cmpPieces(pieceString)) {
 					return piece;
 				}
 			}
@@ -364,43 +365,107 @@ public class Board {
         char file = (char) ('a' + x  );
         char rank = (char) (8-y+'0');
 
+
         return ""+file+rank;
 		
     }
 
-	static ArrayList<String> isSafe(String coords, Color color){
-		ArrayList<String> result = new ArrayList<>();
+	static ArrayList<String> isSafe ( String coords, Color color) {
+
+		ArrayList<String> fin = new ArrayList<>();
 		
 		int file = coords.charAt(0) - 'a'; // y
-		int rank = MAX_COL - (coords.charAt(1) - '1'); // x
-		System.out.println(rank+" "+file);
+		int rank = 7 - (coords.charAt(1) - '1'); // x
+
 
 		if (color == Color.WHITE) {
 			for (int i = 0; i < black.size(); i++) {
-				Piece piece = black.get(i);
-				if (piece.isPossibleCoordinate(rank, file)) {
-					// return true;
-					String cp = coOrdinateToPosition(piece.getX(), piece.getY());
-					String warn = "The Black "+piece.pieceName+" in "+cp+" can capture on "+coords;
-					result.add(warn);
+				Piece p = black.get(i);
+				if (p.isAttackableCoOrdinate(file, rank)) {
+					String cp = coOrdinateToPosition(p.getX(), p.getY());
+					String warne = "The Black "+p.pieceName+" in "+cp+" can capture on "+coords;
+					fin.add(warne);
 				}
 			}
 		}
 
 		else if (color == Color.BLACK) {
 			for (int i = 0; i < white.size(); i++) {
-				Piece piece = white.get(i);
-				if (piece.isPossibleCoordinate(rank, file)) {
-					String cp = coOrdinateToPosition(piece.getX(), piece.getY());
-					String warn = "The White "+piece.pieceName+" in "+cp+" can capture on "+coords;
-					result.add(warn);
-					// return true;
+				Piece p = white.get(i);
+				if (p.isAttackableCoOrdinate(file, rank)) {
+					String cp = coOrdinateToPosition(p.getX(), p.getY());
+					String warne = "The White "+p.pieceName+" in "+cp+" can capture on "+coords;
+					fin.add(warne);
 				}
 			}
 		}
 
-		return result;
+
+		// setPiece(file, rank, thisPiece);
+
+		return fin;
+
+
 	}
+
+	// static ArrayList<String> isSafe(String coords, Color color){
+	// 	ArrayList<String> result = new ArrayList<>();
+		
+
+	// 	int file = coords.charAt(0) - 'a'; // y
+	// 	int rank = MAX_COL - (coords.charAt(1) - '1'); // x
+	// 	// System.out.println(rank+" "+file);
+		
+
+	// 	if (color == Color.WHITE) {
+	// 		for (int i = 0; i < black.size(); i++) {
+	// 			Piece piece = black.get(i);
+	// 			if ( piece.getName().substring(0, 4).equals("pawn") ) {
+	// 				Pawn pawnPiece = (Pawn)piece;
+	// 				if (pawnPiece.isAttackableCoOrdinate(rank, file)) {
+	// 					// return true;
+	// 					String position = coOrdinateToPosition(pawnPiece.getX(), pawnPiece.getY());
+	// 					String warn = "The Black "+pawnPiece.pieceName+" in "+position+" can capture on "+coords;
+	// 					result.add(warn);
+	// 				}
+					
+	// 			}
+	// 			else {
+	// 				if (piece.isPossibleCoordinate(rank, file)) {
+	// 					// return true;
+	// 					String position = coOrdinateToPosition(piece.getX(), piece.getY());
+	// 					String warn = "The Black "+piece.pieceName+" in "+position+" can capture on "+coords;
+	// 					result.add(warn);
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+
+	// 	else if (color == Color.BLACK) {
+	// 		for (int i = 0; i < white.size(); i++) {
+	// 			Piece piece = white.get(i);
+				
+	// 			if ( piece.getName().substring(0, 4).equals("pawn") ) {
+	// 				Pawn pawnPiece = (Pawn)piece;
+	// 				if (pawnPiece.isAttackableCoOrdinate(rank, file)) {
+	// 					// return true;
+	// 					String position = coOrdinateToPosition(pawnPiece.getX(), pawnPiece.getY());
+	// 					String warn = "The White "+pawnPiece.pieceName+" in "+position+" can capture on "+coords;
+	// 					result.add(warn);
+	// 				}
+	// 			} else {
+	// 				if (piece.isPossibleCoordinate(rank, file)) {
+	// 					String position = coOrdinateToPosition(piece.getX(), piece.getY());
+	// 					String warn = "The White "+piece.pieceName+" in "+position+" can capture on "+coords;
+	// 					result.add(warn);
+	// 					// return true;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+
+	// 	return result;
+	// }
 
 
 }

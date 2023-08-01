@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+
+
 public class Knight extends Piece {
 
 	Knight(Color color, String name, int xorg, int yorg) {
@@ -19,6 +21,11 @@ public class Knight extends Piece {
 		}
 
 		return false;
+	}
+
+	@Override
+	boolean isAttackableCoOrdinate( int x, int y ) {
+		return isPossibleCoordinate(x, y);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+
+
 public class Pawn extends Piece {
 
 	Pawn(Color color, String name, int xorg, int yorg) {
@@ -50,6 +52,56 @@ public class Pawn extends Piece {
 	}
 
 	@Override
+	boolean isAttackableCoOrdinate( int x, int y){
+
+
+		if (this.getColor() == Color.WHITE) {
+
+
+			// diagonal
+			if (this.getY() - y == 1 && Math.abs(this.getX() - x) == 1) {
+				return true;
+			}
+		}
+
+		if (this.getColor() == Color.BLACK) {
+			
+			// diagonal
+			if (this.getY() - y == -1 && Math.abs(this.getX() - x) == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
+	
+
+	// @Override
+	// boolean isAttackablePosition(int x, int y) {
+
+	// 	if (this.getColor() == Color.WHITE) {
+			
+	// 		// diagonal
+	// 		if (this.getY() - y == 1 && Math.abs(this.getX() - x) == 1 && Board.getPiece(x, y) != null
+	// 				&& this.sameColor(Board.getPiece(x, y)) == false) {
+	// 			return true;
+	// 		}
+	// 	}
+
+	// 	if (this.getColor() == Color.BLACK) {
+
+	// 		// diagonal
+	// 		if (this.getY() - y == -1 && Math.abs(this.getX() - x) == 1 && Board.getPiece(x, y) != null
+	// 				&& this.sameColor(Board.getPiece(x, y)) == false) {
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
+
+	@Override
 	public String toString() {
 		if (this.getColor() == Color.WHITE) {
 			return "W_P";
@@ -98,8 +150,8 @@ public class Pawn extends Piece {
 				result.add(pos);
 			}
 
-			if (this.isValidMove(x - 1, y - 1)) {
-				String pos = Board.coOrdinateToPosition(x-1,y-1);
+			if (this.isValidMove(x - 1, y + 1)) {
+				String pos = Board.coOrdinateToPosition(x-1,y+1);
 				result.add(pos);
 			}
 

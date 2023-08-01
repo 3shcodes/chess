@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+
+
 public abstract class Piece {
 
     Color color;
@@ -22,7 +24,7 @@ public abstract class Piece {
     }
 
 
-    String getName() {
+    public String getName() {
 		return this.pieceName;
 	}
 
@@ -41,7 +43,7 @@ public abstract class Piece {
 		return (this.color == otherPiece.getColor());
 	}
 
-	int getX() {
+	public int getX() {
 		return this.x;
 	}
 
@@ -49,7 +51,7 @@ public abstract class Piece {
 		this.x = newX;
 	}
 
-	int getY() {
+	public int getY() {
 		return this.y;
 	}
 
@@ -65,6 +67,7 @@ public abstract class Piece {
 	}
 
 	abstract boolean isPossibleCoordinate(int x, int y);
+	abstract boolean isAttackableCoOrdinate(int x, int y);
 
 	int move( int x, int y, Piece other ){
 		// <White/Black> <coin> at <position 1> has been moved to <position 2>

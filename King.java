@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class King extends Piece {
 
 	public King(Color color, String name, int xorg, int yorg) {
@@ -24,6 +25,12 @@ public class King extends Piece {
 			return true;
 		}
 		return false;
+	}
+	
+
+	@Override
+	boolean isAttackableCoOrdinate( int x, int y ) {
+		return isPossibleCoordinate(x, y);
 	}
 
 	@Override

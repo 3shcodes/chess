@@ -28,6 +28,11 @@ public class Rook extends Piece {
 	}
 
 	@Override
+	boolean isAttackableCoOrdinate( int x, int y ) {
+		return isPossibleCoordinate(x, y);
+	}
+
+	@Override
 	public String toString() {
 		if (this.getColor() == Color.WHITE) {
 			return "W_R";

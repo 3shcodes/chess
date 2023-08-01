@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
-class Bishop extends Piece {
+
+
+
+public class Bishop extends Piece {
 
 	Bishop(Color color, String name, int xorg, int yorg) {
 		super(color, name, xorg, yorg);
@@ -22,6 +25,13 @@ class Bishop extends Piece {
 		}
 		return false;
 	}
+	
+
+	@Override
+	boolean isAttackableCoOrdinate( int x, int y ) {
+		return isPossibleCoordinate(x, y);
+	}
+	
 
 	@Override
 	public String toString() {
@@ -79,6 +89,8 @@ class Bishop extends Piece {
 		}
 		return result;
 	}
+
+
 
 }
 
