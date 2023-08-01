@@ -86,7 +86,7 @@ public class Board {
 	static Piece getPiece(String coOrds) {
 		String coordinates = coOrds.substring(0, 2);
 		int file = coordinates.charAt(0) - 'a'; // y
-		int rank = 7 - (coordinates.charAt(1) - '1'); // x
+		int rank = MAX_COL - (coordinates.charAt(1) - '1'); // x
 
 		if (rank < 0 || rank > MAX_COL || file < 0 || file > MAX_COL) {
 			System.out.println("Invalid Tile please try again");
@@ -372,7 +372,7 @@ public class Board {
 		ArrayList<String> result = new ArrayList<>();
 		
 		int file = coords.charAt(0) - 'a'; // y
-		int rank = 7 - (coords.charAt(1) - '1'); // x
+		int rank = MAX_COL - (coords.charAt(1) - '1'); // x
 		System.out.println(rank+" "+file);
 
 		if (color == Color.WHITE) {
