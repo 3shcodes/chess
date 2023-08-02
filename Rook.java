@@ -29,7 +29,16 @@ public class Rook extends Piece {
 
 	@Override
 	boolean isAttackableCoOrdinate( int x, int y ) {
-		return isPossibleCoordinate(x, y);
+
+		// invalid move for rook
+		if (Math.abs(getX() - x) != 0 && Math.abs(getY() - y) != 0) {
+			return false;
+		}
+
+		if (Board.isPathClear(getX(), getY(), x, y)) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

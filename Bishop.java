@@ -29,7 +29,16 @@ public class Bishop extends Piece {
 
 	@Override
 	boolean isAttackableCoOrdinate( int x, int y ) {
-		return isPossibleCoordinate(x, y);
+
+		// invalid move for bishop
+		if (Math.abs(getX() - x) != Math.abs(getY() - y)) {
+			return false;
+		}
+
+		if (Board.isPathClear(getX(), getY(), x, y)) {
+			return true;
+		}
+		return false;
 	}
 	
 

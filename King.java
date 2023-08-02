@@ -30,7 +30,17 @@ public class King extends Piece {
 
 	@Override
 	boolean isAttackableCoOrdinate( int x, int y ) {
-		return isPossibleCoordinate(x, y);
+		// cannot capture own piece
+
+		if (Math.abs(getX() - x) == 1 && Math.abs(getY() - y) == 1) {
+			return true;
+		}
+		// rook
+		else if (Math.abs(getX() - x) == 1 && Math.abs(getY() - y) == 0
+				|| Math.abs(getX() - x) == 0 && Math.abs(getY() - y) == 1) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

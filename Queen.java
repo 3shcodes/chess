@@ -19,7 +19,7 @@ public class Queen extends Piece {
 			return false;
 		}
 		// bishop
-		if (Math.abs(getX() - x) == Math.abs(getY() - y)) { // bishop
+		if (Math.abs(getX() - x) == Math.abs(getY() - y)) {
 			return true;
 		}
 		// rook
@@ -32,7 +32,21 @@ public class Queen extends Piece {
 
 	@Override
 	boolean isAttackableCoOrdinate( int x, int y ) {
-		return isPossibleCoordinate(x, y);
+
+		// obstruction
+		if (Board.isPathClear(getX(), getY(), x, y) != true) {
+			return false;
+		}
+		// bishop
+		if (Math.abs(getX() - x) == Math.abs(getY() - y)) { 
+			return true;
+		}
+		// rook
+		if (Math.abs(getX() - x) != 0 && Math.abs(getY() - y) == 0
+				|| Math.abs(getX() - x) == 0 && Math.abs(getY() - y) != 0) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

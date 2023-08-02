@@ -25,7 +25,14 @@ public class Knight extends Piece {
 
 	@Override
 	boolean isAttackableCoOrdinate( int x, int y ) {
-		return isPossibleCoordinate(x, y);
+
+
+		if (Math.abs(this.getY() - y) == 2 && Math.abs(this.getX() - x) == 1
+				|| Math.abs(this.getY() - y) == 1 && Math.abs(this.getX() - x) == 2) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
