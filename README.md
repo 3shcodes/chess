@@ -1,6 +1,5 @@
 # 2 Player Chess Game
 
-## (Demo Video)[https://youtube.com]
 
 ## Quick Installation
 Step by step procedure on how to get the development environment running.
